@@ -24,7 +24,9 @@ load_dotenv(ROOT_DIR / ".env")  # Load environment variables
 @pytest.fixture(scope="session")
 def owner():
     return AvsOwner(
-        private_key=os.getenv("PRIVATE_KEY"), eth_rpc_url="http://localhost:8545"
+        private_key=os.getenv("PRIVATE_KEY"),
+        eth_rpc_url="http://localhost:8545",
+        auto_update=False,
     )
 
 
@@ -35,6 +37,7 @@ def aggregator():
         aggregator_server_ip_port_address="localhost:8090",
         ecdsa_private_key_store_path="tests/keys/aggregator.ecdsa.key.json",
         proof_request_probability=1.0,  # challenge every task
+        auto_update=False,
     )
     return Aggregator(config)
 
@@ -45,6 +48,7 @@ def operator():
         eth_rpc_url="http://localhost:8545",
         aggregator_server_ip_port_address="localhost:8090",
         ecdsa_private_key_store_path="tests/keys/operator.ecdsa.key.json",
+        auto_update=False,
         nodes=[
             {
                 "node_name": "node1",
